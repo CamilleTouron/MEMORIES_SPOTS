@@ -1,0 +1,13 @@
+{
+  "extends": ["airbnb-base", "plugin:react/recommended"],
+  "plugins": ["react", "jsx-a11y", "import"],
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {}
+}
