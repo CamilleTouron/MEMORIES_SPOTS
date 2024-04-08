@@ -1,0 +1,94 @@
+{
+  "memories": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "First Memory",
+      "description": "This is the first memory.",
+      "date": "2024-04-08",
+      "longitude": 43.61087370512666,
+      "latitude": 1.4366962545719146
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "Second Memory",
+      "description": "This is the second memory.",
+      "date": "2024-04-07",
+      "longitude": 43.611347361538755,
+      "latitude": 1.4387702638801603
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "title": "First Memory",
+      "description": "This is the first memory.",
+      "date": "2024-04-06",
+      "longitude": 43.61100160500261,
+      "latitude": 1.4334846195697353
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "title": "Second Memory",
+      "description": "This is the second memory.",
+      "date": "2024-04-05",
+      "longitude": 43.60956172077868,
+      "latitude": 1.4326996229006876
+    },
+    {
+      "id": 5,
+      "userId": 3,
+      "title": "First Memory",
+      "description": "This is the first memory.",
+      "date": "2024-04-04",
+      "longitude": 43.608648895078446,
+      "latitude": 1.4349423120256313
+    },
+    {
+      "id": 6,
+      "userId": 3,
+      "title": "Second Memory",
+      "description": "This is the second memory.",
+      "date": "2024-04-03",
+      "longitude": 43.613178660236215,
+      "latitude": 1.4308793736071235
+    },
+    {
+      "id": 7,
+      "userId": 4,
+      "title": "First Memory",
+      "description": "This is the first memory.",
+      "date": "2024-04-02",
+      "longitude": 43.6109310024101,
+      "latitude": 1.4320584429173464
+    },
+    {
+      "id": 8,
+      "userId": 4,
+      "title": "Second Memory",
+      "description": "This is the second memory.",
+      "date": "2024-04-01",
+      "longitude": 43.6127572307924,
+      "latitude": 1.4329539385959966
+    },
+    {
+      "id": 9,
+      "userId": 1,
+      "title": "Test Memory",
+      "description": "This is a test memory.",
+      "date": "2024-04-08",
+      "longitude": 123.456,
+      "latitude": 78.91
+    },
+    {
+      "id": 10,
+      "userId": 1,
+      "title": "Test Memory",
+      "description": "This is a test memory.",
+      "date": "2024-04-08",
+      "longitude": 122,
+      "latitude": 78
+    }
+  ]
+}

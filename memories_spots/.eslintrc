@@ -9,5 +9,8 @@
       "version": "detect"
     }
   },
-  "rules": {}
+  "rules": {
+    "max-len": ["error", { "code": 300 }],
+    "no-console": "off"
+  }
 }

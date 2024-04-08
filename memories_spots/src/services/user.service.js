@@ -14,6 +14,16 @@ const userService = {
     }
   },
 
+  getUserById(userId) {
+    try {
+      const usersData = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+      return usersData.users.find((user) => user.id === userId);
+    } catch (error) {
+      console.error('Error reading users JSON file:', error);
+      return null;
+    }
+  },
+
   createUser(name, email, password) {
     try {
       const usersData = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
