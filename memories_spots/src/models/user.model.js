@@ -1,11 +1,9 @@
-const { encrypt } = require('../services/encrypt.service');
-
 const User = class {
   constructor(id, name, email, password) {
     this.id = id;
     this.name = name;
     this.email = email;
-    this.password = encrypt(password);
+    this.password = password;
   }
 
   static fromJson(json) {
@@ -19,11 +17,6 @@ const User = class {
       email: user.email,
       password: user.password,
     };
-  }
-
-  static verifyPassword(user, password) {
-    const encryptedPassword = encrypt(password);
-    return encryptedPassword === user.password;
   }
 };
 
