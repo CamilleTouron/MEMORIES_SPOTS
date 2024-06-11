@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/login.page.jsx';
 import memoryService from './services/memory.service';
 import MapViewPage from './pages/map.view.page.jsx';
+import ListPage from './pages/list.page.jsx';
+import Header from './components/header.component.jsx';
+import Footer from './components/footer.component.jsx';
+import Search from './components/search.component.jsx';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -30,14 +35,50 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {user ? (
-        <MapViewPage handleLogout={handleLogout} user={user} setSelectedMemories={handleSelectedMemories} memories={memories} selectedMemories={selectedMemories}/>
-      ) : (
-
-        <LoginPage setUser={handleLogin} />
-      )}
-    </div>
+    <Router>
+      <div className="App">
+        {user ? (
+          <div>
+            <Header handleLogout={handleLogout} />
+            <div className="App">
+              <Routes>
+                <Route path="/" element={
+                  <Search
+                    unableOrderBy={false}
+                    userId={user.id}
+                    setSelectedMemories={handleSelectedMemories}
+                    memories={memories}
+                  />
+                }
+                />
+                <Route path="/list" element={
+                  <>
+                    <Search
+                      unableOrderBy={false}
+                      userId={user.id}
+                      setSelectedMemories={handleSelectedMemories}
+                      memories={memories} />
+                    <ListPage
+                      selectedMemories={selectedMemories} />
+                  </>
+                }
+                />
+                <Route path="/map" element={
+                  <>
+                    <MapViewPage
+                      selectedMemories={selectedMemories} />
+                  </>
+                }
+                />
+              </Routes>
+            </div>
+            <Footer/>
+          </div>
+        ) : (
+          <LoginPage setUser={handleLogin} />
+        )}
+      </div>
+    </Router>
   );
 }
 

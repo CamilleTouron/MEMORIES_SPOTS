@@ -9,6 +9,11 @@ const userService = {
     return usersData.users.find((user) => user.id === userId);
   },
 
+  getUserId() {
+    const usersData = JSON.parse(localStorage.getItem('usersData')) || { users: [] };
+    return usersData.users.id;
+  },
+
   verifyUser(email, password) {
     const usersData = JSON.parse(localStorage.getItem('usersData')) || { users: [] };
     const userToFind = usersData.users.find((user) => user.email === email);
