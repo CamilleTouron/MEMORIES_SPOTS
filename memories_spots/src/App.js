@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import LoginPage from './pages/login.page.jsx';
-import Header from './components/header.component.jsx';
-import Footer from './components/footer.component.jsx';
-import Search from './components/search.component.jsx';
 import memoryService from './services/memory.service';
+import MapViewPage from './pages/map.view.page.jsx';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,18 +32,7 @@ function App() {
   return (
     <div className="App">
       {user ? (
-        <div>
-          <Header handleLogout={handleLogout} />
-          <div className="App">
-            <Search
-              unableOrderBy={false}
-              userId={user.id}
-              setSelectedMemories={handleSelectedMemories}
-              memories={memories}
-            />
-          </div>
-          <Footer/>
-        </div>
+        <MapViewPage handleLogout={handleLogout} user={user} setSelectedMemories={handleSelectedMemories} memories={memories} selectedMemories={selectedMemories}/>
       ) : (
         <LoginPage setUser={handleLogin} />
       )}

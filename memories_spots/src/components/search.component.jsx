@@ -56,18 +56,7 @@ const SearchComponent = ({
   }, [filter, orderBy, memories, searchTerm]);
 
   return (
-    <Box sx={{
-      margin: '20px',
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: '10px',
-      '& > *': {
-        flex: '1 1 auto',
-        height: '40px',
-      },
-      button: { height: '40px' },
-    }}>
+    <Box className="search-box">
       <Autocomplete
         options={memories.map((memory) => memory.title)}
         freeSolo
@@ -84,13 +73,10 @@ const SearchComponent = ({
           onChange={handleFilterChange}
           label="Filter by city"
         >
-          {cities.length <= 0 ? (
-              <MenuItem><em>None</em></MenuItem>
-          ) : (
-            cities.map((city) => (
-                  <MenuItem key={city} value={city}>{city}</MenuItem>
-            ))
-          )}
+          <MenuItem value=""><em>None</em></MenuItem>
+          {cities.map((city) => (
+              <MenuItem key={city} value={city}>{city}</MenuItem>
+          ))}
         </Select>
       </FormControl>
       {!unableOrderBy && (
