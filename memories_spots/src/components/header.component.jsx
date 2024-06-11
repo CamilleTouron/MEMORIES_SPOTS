@@ -12,13 +12,17 @@ const Header = ({ handleLogout }) => {
     navigate('/list');
   };
 
+  const handleMapView = () => {
+    navigate('/');
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           MemorySpots
         </Typography>
-        <Button color="inherit">Map View</Button>
+        <Button color="inherit" onClick={handleMapView}>Map View</Button>
         <Button color="inherit" onClick={handleListView}>List View</Button>
         <Button color="inherit" onClick={handleLogout}>Deconnexion</Button>
       </Toolbar>

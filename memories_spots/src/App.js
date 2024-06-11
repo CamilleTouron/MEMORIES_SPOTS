@@ -43,12 +43,7 @@ function App() {
             <div className="App">
               <Routes>
                 <Route path="/" element={
-                  <Search
-                    unableOrderBy={false}
-                    userId={user.id}
-                    setSelectedMemories={handleSelectedMemories}
-                    memories={memories}
-                  />
+                    <MapViewPage user={user} setSelectedMemories={handleSelectedMemories} memories={memories} selectedMemories={selectedMemories}/>
                 }
                 />
                 <Route path="/list" element={
@@ -59,13 +54,6 @@ function App() {
                       setSelectedMemories={handleSelectedMemories}
                       memories={memories} />
                     <ListPage
-                      selectedMemories={selectedMemories} />
-                  </>
-                }
-                />
-                <Route path="/map" element={
-                  <>
-                    <MapViewPage
                       selectedMemories={selectedMemories} />
                   </>
                 }

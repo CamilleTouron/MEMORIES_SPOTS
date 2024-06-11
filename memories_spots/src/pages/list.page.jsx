@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import ListCard from '../components/listCard.component.jsx';
-import memoryService from '../services/memory.service';
-import userService from '../services/user.service';
 import '../App.css';
-
-const userId = userService.getUserId();
 
 const ListPage = ({ selectedMemories }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const souvenirsPerPage = 4;
-  const [souvenirs, setSouvenirs] = useState([]);
 
-  useEffect(() => {
-    const fetchMemories = async () => {
-      const memories = await memoryService.getMemoriesByUserId(userId); // Assuming this is an async function
-      setSouvenirs(memories);
-    };
-
-    fetchMemories();
-  }, []);
-
-  const totalPages = Math.ceil(souvenirs.length / souvenirsPerPage);
+  const totalPages = Math.ceil(selectedMemories.length / souvenirsPerPage);
 
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
@@ -32,10 +18,17 @@ const ListPage = ({ selectedMemories }) => {
     setCurrentPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : prevPage));
   };
 
+  const startIdx = (currentPage - 1) * souvenirsPerPage;
+  const currentMemories = selectedMemories.slice(startIdx, startIdx + souvenirsPerPage);
+
   return (
     <div className='container'>
+      <br />
+      <br />
+      <br />
+      <br />
       <div className='grid'>
-        {selectedMemories.map((souvenir, index) => (
+        {currentMemories.map((souvenir, index) => (
           <ListCard
             key={index}
             title={souvenir.title}

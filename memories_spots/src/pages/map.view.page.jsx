@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/header.component.jsx';
-import Footer from '../components/footer.component.jsx';
 import Search from '../components/search.component.jsx';
 import MapComponent from '../components/map.component.jsx';
 import AddMemoryButton from '../components/create.button.component.jsx';
 
 function MapViewPage({
-  user, setSelectedMemories, memories, handleLogout, selectedMemories,
+  user, setSelectedMemories, memories, selectedMemories,
 }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -40,7 +38,6 @@ function MapViewPage({
 
   return (
   <div className="App">
-    <Header handleLogout={handleLogout}/>
     <div className="map-view">
       <div className="search-component">
         <Search
@@ -62,7 +59,6 @@ function MapViewPage({
       </div>
     </div>
     <AddMemoryButton />
-    <Footer/>
   </div>
   );
 }
@@ -71,7 +67,6 @@ MapViewPage.propTypes = {
   user: PropTypes.object.isRequired,
   setSelectedMemories: PropTypes.func.isRequired,
   memories: PropTypes.array.isRequired,
-  handleLogout: PropTypes.func.isRequired,
   selectedMemories: PropTypes.array.isRequired,
 };
 
