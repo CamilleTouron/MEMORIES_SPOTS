@@ -56,6 +56,17 @@ const memoryService = {
         note: 1,
         city: 'Paris',
       },
+      {
+        id: 6,
+        userId,
+        title: 'Louvre Museum',
+        description: 'This is the fifth memory',
+        date: '2021-10-05',
+        longitude: 2.3376,
+        latitude: 48.8606,
+        note: 1,
+        city: 'Paris',
+      },
     ];
     localStorage.setItem('memoriesData', JSON.stringify({ memories }));
     const memoriesData = JSON.parse(localStorage.getItem('memoriesData')) || { memories: [] };
