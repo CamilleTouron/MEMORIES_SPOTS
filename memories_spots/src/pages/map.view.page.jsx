@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import axios from 'axios';
 import Header from '../components/header.component.jsx';
 import Footer from '../components/footer.component.jsx';
 import Search from '../components/search.component.jsx';
 import MapComponent from '../components/map.component.jsx';
+import AddMemoryButton from '../components/create.button.component.jsx';
 
 function MapViewPage({
   user, setSelectedMemories, memories, handleLogout, selectedMemories,
@@ -61,6 +61,7 @@ function MapViewPage({
         />
       </div>
     </div>
+    <AddMemoryButton />
     <Footer/>
   </div>
   );

@@ -36,3 +36,22 @@
   height: auto;
   background-color: white;
 }
+
+.add-memory-button {
+  position: fixed !important;
+  top: 86% !important;
+  right: 0 !important;
+  transform: translateY(-50%);
+  z-index: 100 !important;
+  margin-right: 40px !important;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f8f8;
+  text-align: center;
+  padding: 10px 0;
+  box-shadow: 0 -2px 20px 1px rgba(0, 0, 0, 0.2);
+}

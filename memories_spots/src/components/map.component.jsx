@@ -29,6 +29,33 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
+const defaultMarkers = [
+  {
+    position: [43.6047, 1.4442], // Coordinates for Basilique Saint-Sernin
+    content: {
+      title: 'Basilique Saint-Sernin',
+      date: '2022-01-01',
+      link: '',
+    },
+  },
+  {
+    position: [43.6034, 1.4335], // Coordinates for Musée des Augustins
+    content: {
+      title: 'Musée des Augustins',
+      date: '2022-01-02',
+      link: '',
+    },
+  },
+  {
+    position: [43.6108, 1.4543], // Coordinates for Cité de l'espace
+    content: {
+      title: 'Cité de l\'espace',
+      date: '2022-01-03',
+      link: '',
+    },
+  },
+];
+
 const MapComponent = ({
   center = [43.6047, 1.4442],
   zoom = 13,
@@ -37,7 +64,7 @@ const MapComponent = ({
   memories,
   selectedMemories,
 }) => {
-  const [markers, setMarkers] = useState([]);
+  const [markers, setMarkers] = useState(defaultMarkers);
   const [newCenter, setNewCenter] = useState(center);
 
   useEffect(() => {
@@ -78,7 +105,7 @@ const MapComponent = ({
                     {marker.content.link ? (
                         <a href={marker.content.link} target="_blank" rel="noopener noreferrer">See more</a>
                     ) : (
-                        <span>See more ...</span>
+                        <span>See more</span>
                     )}
                   </div>
                 </Popup>

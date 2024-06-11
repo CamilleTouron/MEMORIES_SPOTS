@@ -34,6 +34,7 @@ function App() {
       {user ? (
         <MapViewPage handleLogout={handleLogout} user={user} setSelectedMemories={handleSelectedMemories} memories={memories} selectedMemories={selectedMemories}/>
       ) : (
+
         <LoginPage setUser={handleLogin} />
       )}
     </div>
