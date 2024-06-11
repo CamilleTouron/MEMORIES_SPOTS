@@ -18,3 +18,21 @@
   justify-content: center;
   align-items: center;
 }
+
+.search-box {
+  margin-top: 10px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  position: fixed;
+  width: 98% ;
+}
+
+.search-box > * {
+  flex: 1 1 auto;
+  height: auto;
+  background-color: white;
+}
