@@ -50,7 +50,7 @@ IconContainer.propTypes = {
 };
 
 const MemoryForm = ({
-  memory, onSubmit, isDisplayMode, handleClose, setSnackbarMessage, setOpenSnackbar,
+  memory, onSubmit, isDisplayMode, handleClose, setSnackbarMessage, setOpenSnackbar, setMemories,
 }) => {
   const [formMemory, setFormMemory] = useState(memory || {
     title: '',
@@ -71,15 +71,23 @@ const MemoryForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(formMemory);
-    setSnackbarMessage('New memory created');
-    setOpenSnackbar(true);
+
+    if (!isDisplayMode) {
+      onSubmit();
+      setMemories((prevMemories) => [...prevMemories, formMemory]);
+      setSnackbarMessage('New memory created');
+      setOpenSnackbar(true);
+    }
     handleClose();
   };
 
-  const handleCloseCross = () => {
-    setSnackbarMessage('Create canceled');
-    setOpenSnackbar(true);
+  const handleCloseCross = (event) => {
+    event.preventDefault();
+
+    if (!isDisplayMode) {
+      setSnackbarMessage('Create canceled');
+      setOpenSnackbar(true);
+    }
     handleClose();
   };
 
@@ -116,11 +124,17 @@ const MemoryForm = ({
                     </Grid>
                     <Grid item xs={12}>
                       <StyledRating
-                          name="highlight-selected-only"
-                          defaultValue={4}
-                          IconContainerComponent={IconContainer}
-                          getLabelText={(value) => customIcons[value].label}
-                          highlightSelectedOnly
+                        name="highlight-selected-only"
+                        defaultValue={formMemory.note}
+                        IconContainerComponent={IconContainer}
+                        getLabelText={(value) => customIcons[value].label}
+                        highlightSelectedOnly
+                        onChange={(event, newValue) => {
+                          setFormMemory({
+                            ...formMemory,
+                            note: newValue,
+                          });
+                        }}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -129,7 +143,7 @@ const MemoryForm = ({
                   </>
               ) : (
                   <>
-                    <Grid item xs={12} fullWidth>
+                    <Grid item xs={12}>
                       <Typography variant="h5" align="center">Memory details</Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -142,10 +156,10 @@ const MemoryForm = ({
                       <Typography variant="body1">{formMemory.date}</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body1">{formMemory.longitude}</Typography>
+                      <Typography variant="body1">{formMemory.longitude.toString()}</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography variant="body1">{formMemory.latitude}</Typography>
+                      <Typography variant="body1">{formMemory.latitude.toString()}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                       <Typography variant="body1">{formMemory.city}</Typography>
@@ -174,16 +188,17 @@ MemoryForm.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     date: PropTypes.string,
-    longitude: PropTypes.string,
-    latitude: PropTypes.string,
+    longitude: PropTypes.number,
+    latitude: PropTypes.number,
     note: PropTypes.number,
     city: PropTypes.string,
   }),
-  onSubmit: PropTypes.func.isRequired,
-  isDisplayMode: PropTypes.bool,
+  onSubmit: PropTypes.func,
+  isDisplayMode: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  setSnackbarMessage: PropTypes.func.isRequired,
-  setOpenSnackbar: PropTypes.func.isRequired,
+  setSnackbarMessage: PropTypes.func,
+  setOpenSnackbar: PropTypes.func,
+  setMemories: PropTypes.func,
 };
 
 export default MemoryForm;

@@ -33,6 +33,7 @@ const defaultMarkers = [
   {
     position: [43.6047, 1.4442], // Coordinates for Basilique Saint-Sernin
     content: {
+      id: 1,
       title: 'Basilique Saint-Sernin',
       date: '2022-01-01',
       link: '',
@@ -41,6 +42,7 @@ const defaultMarkers = [
   {
     position: [43.6034, 1.4335], // Coordinates for Musée des Augustins
     content: {
+      id: 2,
       title: 'Musée des Augustins',
       date: '2022-01-02',
       link: '',
@@ -49,6 +51,7 @@ const defaultMarkers = [
   {
     position: [43.6108, 1.4543], // Coordinates for Cité de l'espace
     content: {
+      id: 3,
       title: 'Cité de l\'espace',
       date: '2022-01-03',
       link: '',
@@ -63,18 +66,27 @@ const MapComponent = ({
   width = '100%',
   memories,
   selectedMemories,
+  handleDisplayMemory,
+  isDisplayMode = false,
 }) => {
   const [markers, setMarkers] = useState(defaultMarkers);
   const [newCenter, setNewCenter] = useState(center);
+
+  const handleInterDisplayMemory = (memoryId) => () => {
+    if (!isDisplayMode) {
+      handleDisplayMemory(memoryId);
+    }
+  };
 
   useEffect(() => {
     if (selectedMemories) {
       setMarkers(selectedMemories.map((memory) => ({
         position: [memory.latitude, memory.longitude],
         content: {
+          id: memory.id,
           title: memory.title,
           date: memory.date,
-          link: '',
+          link: '.',
         },
       })));
       if (selectedMemories.length > 0) {
@@ -103,7 +115,7 @@ const MapComponent = ({
                     {marker.content.date}
                     <br/>
                     {marker.content.link ? (
-                        <a href={marker.content.link} target="_blank" rel="noopener noreferrer">See more</a>
+                        <a onClick={handleInterDisplayMemory(marker.content.id)} target="_blank" rel="noopener noreferrer">See more</a>
                     ) : (
                         <span>See more</span>
                     )}
@@ -132,6 +144,8 @@ MapComponent.propTypes = {
   ),
   memories: PropTypes.array,
   selectedMemories: PropTypes.array,
+  handleDisplayMemory: PropTypes.func,
+  isDisplayMode: PropTypes.bool,
 };
 
 export default MapComponent;

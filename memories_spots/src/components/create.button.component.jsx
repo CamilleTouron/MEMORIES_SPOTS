@@ -3,9 +3,10 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Dialog from '@mui/material/Dialog';
 import { Alert, Snackbar } from '@mui/material';
+import PropTypes from 'prop-types';
 import MemoryForm from './create.form.component.jsx';
 
-function AddMemoryButton() {
+function AddMemoryButton({ setMemories }) {
   const [open, setOpen] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -19,8 +20,6 @@ function AddMemoryButton() {
   };
 
   const handleSubmit = () => {
-    // handle the submission of the form
-    // you might want to add the new memory to your state here
     handleClose();
   };
 
@@ -34,7 +33,7 @@ function AddMemoryButton() {
                 <AddIcon />
             </Fab>
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-                <MemoryForm onSubmit={handleSubmit} isDisplayMode={false} handleClose={handleClose} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage}/>
+                <MemoryForm setMemories={setMemories} onSubmit={handleSubmit} isDisplayMode={false} handleClose={handleClose} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage}/>
             </Dialog>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                 <Alert onClose={handleCloseSnackbar} severity="info" sx={{ width: '100%' }}>
@@ -44,5 +43,9 @@ function AddMemoryButton() {
         </>
   );
 }
+
+AddMemoryButton.propTypes = {
+  setMemories: PropTypes.func.isRequired,
+};
 
 export default AddMemoryButton;

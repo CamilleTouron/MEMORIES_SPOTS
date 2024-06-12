@@ -17,7 +17,7 @@ const Header = ({ handleLogout }) => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar className="header" >
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           MemorySpots

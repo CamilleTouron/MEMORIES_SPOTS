@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Dialog from '@mui/material/Dialog';
 import Search from '../components/search.component.jsx';
 import MapComponent from '../components/map.component.jsx';
 import AddMemoryButton from '../components/create.button.component.jsx';
+import Footer from '../components/footer.component.jsx';
+import MemoryForm from '../components/create.form.component.jsx';
 
 function MapViewPage({
-  user, setSelectedMemories, memories, selectedMemories,
+  user, setSelectedMemories, memories, selectedMemories, setMemories,
 }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -14,6 +17,8 @@ function MapViewPage({
   const [zoom, setZoom] = useState(11);
   const [mostPopularCity, setMostPopularCity] = useState('Toulouse');
   const [numberOfMemoriesFilteredByCity, setNumberOfMemoriesFilteredByCity] = useState(0);
+  const [displayOpen, setDisplayOpen] = useState(false);
+  const [memoryToDisplay, setMemoryToDisplay] = useState(null);
 
   useEffect(() => {
     if (selectedMemories && selectedMemories.length > 0) {
@@ -36,6 +41,18 @@ function MapViewPage({
     }
   }, [mostPopularCity, memories]);
 
+  const handleClose = () => {
+    setDisplayOpen(false);
+  };
+
+  const handleDisplayMemory = (memoryId) => {
+    const memory = memories.find((m) => m.id === memoryId);
+    setMemoryToDisplay(memory);
+    if (!displayOpen) {
+      setDisplayOpen(true);
+    }
+  };
+
   return (
   <div className="App">
     <div className="map-view">
@@ -55,10 +72,21 @@ function MapViewPage({
           center={center}
           memories={memories}
           selectedMemories={selectedMemories}
+          handleDisplayMemory={handleDisplayMemory}
+          isDisplayMode={displayOpen}
         />
       </div>
     </div>
-    <AddMemoryButton />
+    <AddMemoryButton setMemories={setMemories}/>
+    <Dialog open={displayOpen} onClose={handleClose} fullWidth maxWidth="sm">
+      <MemoryForm
+          selectedMemories={selectedMemories}
+          isDisplayMode={true}
+          handleClose={handleClose}
+          memory={memoryToDisplay}
+      />
+    </Dialog>
+    <Footer/>
   </div>
   );
 }
@@ -68,6 +96,8 @@ MapViewPage.propTypes = {
   setSelectedMemories: PropTypes.func.isRequired,
   memories: PropTypes.array.isRequired,
   selectedMemories: PropTypes.array.isRequired,
+  setMemories: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
 };
 
 export default MapViewPage;

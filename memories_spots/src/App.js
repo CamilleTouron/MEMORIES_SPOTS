@@ -1,72 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Routes, Route,
+} from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/login.page.jsx';
 import memoryService from './services/memory.service';
 import MapViewPage from './pages/map.view.page.jsx';
 import ListPage from './pages/list.page.jsx';
-import Header from './components/header.component.jsx';
-import Footer from './components/footer.component.jsx';
 import Search from './components/search.component.jsx';
+import Header from './components/header.component.jsx';
 
 function App() {
   const [user, setUser] = useState(null);
   const [selectedMemories, setSelectedMemories] = useState([]);
   const [memories, setMemories] = useState([]);
 
+  if (user === null) {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }
+
   useEffect(() => {
-    if (user) {
+    if (user && memories.length === 0) {
       setMemories(memoryService.getMemoriesByUserId(user.id));
+      setSelectedMemories(memories);
     }
   }, [user]);
 
   useEffect(() => {
-    console.log(selectedMemories);
-  }, [selectedMemories]);
+    setSelectedMemories(memories);
+  }, [memories]);
 
-  const handleLogin = (userFromForm) => {
-    setUser(userFromForm);
-  };
-  const handleLogout = () => {
-    setUser(null);
-  };
   const handleSelectedMemories = (newSelectedMemories) => {
     setSelectedMemories(newSelectedMemories);
   };
 
+  const handleSetMemories = (newMemories) => {
+    setMemories(newMemories);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+
   return (
-    <Router>
       <div className="App">
-        {user ? (
-          <div>
-            <Header handleLogout={handleLogout} />
-            <div className="App">
-              <Routes>
+      <Router>
+        <Routes>
+          {user ? (
+              <>
                 <Route path="/" element={
-                    <MapViewPage user={user} setSelectedMemories={handleSelectedMemories} memories={memories} selectedMemories={selectedMemories}/>
-                }
-                />
-                <Route path="/list" element={
                   <>
-                    <Search
+                    <Header handleLogout={handleLogout} />
+                  <MapViewPage
+                        setUser={setUser}
+                        user={user}
+                        setSelectedMemories={setSelectedMemories}
+                        setMemories={handleSetMemories}
+                        memories={memories}
+                        selectedMemories={selectedMemories}
+                    />
+                    </>
+                  }
+                  />
+              <Route path="/list" element={
+                <>
+                  <Header handleLogout={handleLogout} />
+                  <Search
                       unableOrderBy={false}
-                      userId={user.id}
                       setSelectedMemories={handleSelectedMemories}
                       memories={memories} />
-                    <ListPage
-                      selectedMemories={selectedMemories} />
-                  </>
-                }
-                />
-              </Routes>
-            </div>
-            <Footer/>
-          </div>
-        ) : (
-          <LoginPage setUser={handleLogin} />
-        )}
+                  <ListPage
+                      selectedMemories={selectedMemories}
+                      setUser={setUser}
+                      user={user}
+                      setMemories={handleSetMemories}
+                  />
+                </>
+              }
+              />
+              </>
+          ) : (
+              <>
+            <Route path="/" element={<LoginPage setUser={setUser} />} />
+        </>
+          )}
+      </Routes>
+      </Router>
       </div>
-    </Router>
   );
 }
 

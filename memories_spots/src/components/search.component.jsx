@@ -3,15 +3,14 @@ import {
   Box, TextField, Select, MenuItem, InputLabel, FormControl, Autocomplete,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import memoryService from '../services/memory.service';
 
 const SearchComponent = ({
-  unableOrderBy, userId, setSelectedMemories, memories,
+  unableOrderBy, setSelectedMemories, memories,
 }) => {
   const [filter, setFilter] = useState('');
   const [orderBy, setOrderBy] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [cities, setCities] = useState(memoryService.getCitiesForAUser(userId));
+  const [cities, setCities] = useState([]);
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
@@ -26,9 +25,8 @@ const SearchComponent = ({
   };
 
   useEffect(() => {
-    console.log('SearchComponent useEffect');
-    let memoriesCandidates = memoryService.getMemoriesByUserId(userId);
-    setCities(memoryService.getCitiesForAUser(userId));
+    let memoriesCandidates = memories;
+    setCities([...new Set(memories.map((memory) => memory.city))]);
     if (filter) {
       memoriesCandidates = memoriesCandidates.filter((memory) => memory.city === filter);
     }
@@ -101,7 +99,6 @@ const SearchComponent = ({
 
 SearchComponent.propTypes = {
   unableOrderBy: PropTypes.bool,
-  userId: PropTypes.number.isRequired,
   setSelectedMemories: PropTypes.func.isRequired,
   memories: PropTypes.array.isRequired,
 };
