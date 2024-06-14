@@ -31,6 +31,7 @@ function App() {
 
   useEffect(() => {
     setSelectedMemories(memories);
+    localStorage.setItem('memories', JSON.stringify(memories));
   }, [memories]);
 
   const handleSelectedMemories = (newSelectedMemories) => {
@@ -44,6 +45,7 @@ function App() {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    window.location.pathname = '/';
   };
 
   return (

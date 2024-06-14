@@ -47,6 +47,7 @@ const LoginComponent = ({ setUser }) => {
       const newUser = userService.createUser(formData.email, formData.email, formData.password);
       if (newUser) {
         setUser(newUser);
+        localStorage.setItem('user', JSON.stringify(newUser));
       } else {
         setAlert({ open: true, message: 'Error creating user', severity: 'error' });
       }

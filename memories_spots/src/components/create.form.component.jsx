@@ -113,11 +113,12 @@ const MemoryForm = ({
                     <Grid item xs={12}>
                       <TextField fullWidth name="date" value={formMemory.date} onChange={handleChange} label="Date" type="date" InputLabelProps={{ shrink: true }} required />
                     </Grid>
+                      <Grid item xs={6}>
+                        <TextField fullWidth name="latitude" value={formMemory.latitude} onChange={handleChange} label="Latitude" required />
+                      </Grid>
                     <Grid item xs={6}>
-                      <TextField fullWidth name="longitude" value={formMemory.longitude} onChange={handleChange} label="Longitude" required />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField fullWidth name="latitude" value={formMemory.latitude} onChange={handleChange} label="Latitude" required />
+
+                    <TextField fullWidth name="longitude" value={formMemory.longitude} onChange={handleChange} label="Longitude" required />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField fullWidth name="city" value={formMemory.city} onChange={handleChange} label="City" required />
@@ -167,11 +168,17 @@ const MemoryForm = ({
                     <Grid item xs={12}>
                       <StyledRating
                           name="highlight-selected-only"
-                          defaultValue={2}
+                          defaultValue={formMemory.note}
                           IconContainerComponent={IconContainer}
                           getLabelText={(value) => customIcons[value].label}
                           highlightSelectedOnly
-                          readOnly
+                          onChange={(event, newValue) => {
+                            setFormMemory({
+                              ...formMemory,
+                              note: newValue,
+                            });
+                          }}
+                          readOnly={true}
                       />
                     </Grid>
                   </>
